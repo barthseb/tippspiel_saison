@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import ParticipantSearch from '@/components/ParticipantSearch'
+import BackupRestore from '@/components/BackupRestore'
 import AutoRefresh from '@/components/AutoRefresh'
 
 export default async function TeilnehmerPage() {
@@ -21,11 +22,14 @@ export default async function TeilnehmerPage() {
           <h1 className="text-2xl font-bold text-zinc-900">Teilnehmer</h1>
           <p className="text-zinc-500 mt-1">{participants?.length ?? 0} eingetragen</p>
         </div>
-        <Link href="/dashboard/teilnehmer/neu">
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg">
-            + Neuer Teilnehmer
-          </Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          <BackupRestore />
+          <Link href="/dashboard/teilnehmer/neu">
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg">
+              + Neuer Teilnehmer
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <Card className="border border-zinc-200 shadow-sm">
