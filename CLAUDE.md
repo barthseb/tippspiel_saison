@@ -49,6 +49,6 @@ Run in order via Supabase SQL Editor:
 ## Environment
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://hpcielicjkethknlkptr.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://lueqlagjlegcirndgyjy.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 ```
