@@ -30,7 +30,13 @@ export async function proxy(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   const isAuthRoute = request.nextUrl.pathname.startsWith('/login')
+  const isAuthCallback = request.nextUrl.pathname.startsWith('/auth/callback')
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
+
+  // Allow auth callback through without session check
+  if (isAuthCallback) {
+    return supabaseResponse
+  }
 
   if (!user && isDashboardRoute) {
     const loginUrl = new URL('/login', request.url)
@@ -46,5 +52,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login'],
+  matcher: ['/dashboard/:path*', '/login', '/auth/:path*'],
 }
