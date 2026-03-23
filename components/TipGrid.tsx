@@ -49,7 +49,7 @@ export default function TipGrid({ matches, tips, onChange, disabled = false }: T
         <span>Tipp</span>
         <span>Pkt</span>
       </div>
-      {matches.map((match, idx) => {
+      {matches.map((match) => {
         const tip = tips.find((t) => t.matchId === match.id)
         const homeVal = tip?.homeGoalsTip ?? ''
         const awayVal = tip?.awayGoalsTip ?? ''
@@ -95,8 +95,6 @@ export default function TipGrid({ matches, tips, onChange, disabled = false }: T
               awayValue={awayVal}
               onHomeChange={(v) => onChange(match.id, 'home', v)}
               onAwayChange={(v) => onChange(match.id, 'away', v)}
-              homeTabIndex={idx * 2 + 1}
-              awayTabIndex={idx * 2 + 2}
               disabled={disabled}
             />
             <div className="w-14 flex justify-end">
