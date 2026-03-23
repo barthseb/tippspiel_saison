@@ -57,7 +57,7 @@ export default function LeaderboardTable({ leaderboard, matches }: Props) {
     // We need tips for export — we'll export what we have from leaderboard
     const rows = leaderboard.map((entry, idx) => [
       idx + 1,
-      entry.ticket_number,
+      entry.ticket_number ?? '',
       entry.name,
       entry.total_points,
       entry.exact_scores,
@@ -121,7 +121,7 @@ export default function LeaderboardTable({ leaderboard, matches }: Props) {
                         {idx + 1}
                       </span>
                     </td>
-                    <td className="px-4 py-3 font-mono text-zinc-500">#{entry.ticket_number}</td>
+                    <td className="px-4 py-3 font-mono text-zinc-500">{entry.ticket_number ? `#${entry.ticket_number}` : ''}</td>
                     <td className="px-4 py-3 font-medium text-zinc-900">{entry.name}</td>
                     <td className="px-4 py-3 text-right font-bold text-zinc-900">{entry.total_points}</td>
                     <td className="px-4 py-3 text-right text-green-600">{entry.exact_scores}</td>
@@ -155,7 +155,7 @@ export default function LeaderboardTable({ leaderboard, matches }: Props) {
                   <div>
                     <p className="font-medium text-zinc-900 text-sm">{entry.name}</p>
                     <p className="text-xs text-zinc-400">
-                      #{entry.ticket_number} · {entry.exact_scores}× exakt · {entry.correct_outcomes}× Tendenz
+                      {entry.ticket_number ? `#${entry.ticket_number} · ` : ''}{entry.exact_scores}× exakt · {entry.correct_outcomes}× Tendenz
                     </p>
                   </div>
                 </div>
@@ -172,9 +172,9 @@ export default function LeaderboardTable({ leaderboard, matches }: Props) {
           <DialogHeader>
             <DialogTitle>
               {selectedEntry?.name}
-              <span className="text-zinc-400 font-normal text-sm ml-2">
-                #{selectedEntry?.ticket_number}
-              </span>
+              {selectedEntry?.ticket_number && <span className="text-zinc-400 font-normal text-sm ml-2">
+                #{selectedEntry.ticket_number}
+              </span>}
             </DialogTitle>
           </DialogHeader>
 

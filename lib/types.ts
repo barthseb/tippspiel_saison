@@ -5,7 +5,7 @@ export interface AdminProfile {
 
 export interface Participant {
   id: string
-  ticket_number: string
+  ticket_number: string | null
   name: string
   phone: string | null
   notes: string | null
@@ -37,7 +37,7 @@ export interface Tip {
 
 export interface LeaderboardEntry {
   id: string
-  ticket_number: string
+  ticket_number: string | null
   name: string
   total_points: number
   exact_scores: number

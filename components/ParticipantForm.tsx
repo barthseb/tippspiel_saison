@@ -58,7 +58,7 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
         const { data, error } = await supabase
           .from('participants')
           .update({
-            ticket_number: ticketNumber,
+            ticket_number: ticketNumber || null,
             name,
             phone: phone || null,
             notes: notes || null,
@@ -80,7 +80,7 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
         const { data, error } = await supabase
           .from('participants')
           .insert({
-            ticket_number: ticketNumber,
+            ticket_number: ticketNumber || null,
             name,
             phone: phone || null,
             notes: notes || null,
@@ -150,33 +150,31 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
           <CardTitle className="text-base font-semibold text-zinc-900">Stammdaten</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="ticket" className="text-sm font-medium text-zinc-700">
-                Losnummer
-              </Label>
-              <Input
-                id="ticket"
-                value={ticketNumber}
-                onChange={(e) => setTicketNumber(e.target.value)}
-                placeholder="042"
-                required
-                className="rounded-lg border-zinc-200 font-mono"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-sm font-medium text-zinc-700">
-                Name
-              </Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Max Mustermann"
-                required
-                className="rounded-lg border-zinc-200"
-              />
-            </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="name" className="text-sm font-medium text-zinc-700">
+              Name
+            </Label>
+            <Input
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Max Mustermann"
+              required
+              className="rounded-lg border-zinc-200"
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="ticket" className="text-sm font-medium text-zinc-700">
+              Losnummer <span className="text-zinc-400 font-normal">(optional)</span>
+            </Label>
+            <Input
+              id="ticket"
+              value={ticketNumber}
+              onChange={(e) => setTicketNumber(e.target.value)}
+              placeholder="042"
+              className="rounded-lg border-zinc-200 font-mono"
+            />
           </div>
 
           <div className="space-y-1.5">

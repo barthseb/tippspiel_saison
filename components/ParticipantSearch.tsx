@@ -16,7 +16,7 @@ export default function ParticipantSearch({ participants }: Props) {
     const q = search.toLowerCase()
     return (
       p.name.toLowerCase().includes(q) ||
-      p.ticket_number.toLowerCase().includes(q) ||
+      (p.ticket_number ?? '').toLowerCase().includes(q) ||
       (p.phone ?? '').toLowerCase().includes(q)
     )
   })
@@ -45,7 +45,7 @@ export default function ParticipantSearch({ participants }: Props) {
               className="flex items-center justify-between px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 group"
             >
               <div className="flex items-center gap-3">
-                <span className="text-sm font-mono text-zinc-400 w-10">#{p.ticket_number}</span>
+                {p.ticket_number && <span className="text-sm font-mono text-zinc-400 w-10">#{p.ticket_number}</span>}
                 <div>
                   <p className="text-sm font-medium text-zinc-900">{p.name}</p>
                   {p.phone && <p className="text-xs text-zinc-400">{p.phone}</p>}

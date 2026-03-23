@@ -80,7 +80,7 @@ export default async function DashboardPage() {
               <>
                 <p className="text-xl font-bold text-zinc-900 truncate">{topPlayer.name}</p>
                 <p className="text-sm text-zinc-500 mt-0.5">
-                  {topPlayer.total_points} Punkte · Nr. {topPlayer.ticket_number}
+                  {topPlayer.total_points} Punkte{topPlayer.ticket_number ? ` · Nr. ${topPlayer.ticket_number}` : ''}
                 </p>
                 <Link href="/dashboard/rangliste" className="text-xs text-blue-500 mt-1 block">
                   Rangliste anzeigen →
