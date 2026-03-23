@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tippspiel Frühjahrssaison 2026
+
+Admin dashboard for managing a football betting game (Tippspiel). Built with Next.js 16, Supabase, and Tailwind CSS.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file with:
 
-## Learn More
+```
+NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Database Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the migrations in order via the Supabase SQL Editor:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. `supabase/migrations/001_schema.sql` — tables + leaderboard view
+2. `supabase/migrations/002_seed_matches.sql` — all 13 matches
+3. `supabase/migrations/003_functions.sql` — scoring function + trigger
+4. `supabase/migrations/004_rls.sql` — row-level security policies
 
-## Deploy on Vercel
+## Adding a New Participant
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Log in to the dashboard
+2. Navigate to **Teilnehmer** (`/dashboard/teilnehmer`)
+3. Click the button to add a new participant (goes to `/dashboard/teilnehmer/neu`)
+4. Fill in the **Losnummer** (ticket number) and **Name** (phone and notes are optional)
+5. Enter the participant's tips for each match in the tip grid
+6. Click **Speichern** to save
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To edit an existing participant, click their name in the participant list.
+
+## Adding a New Admin
+
+There is no self-registration. Admin accounts are created manually in Supabase:
+
+1. Open your [Supabase project](https://supabase.com/dashboard) → **Authentication** → **Users**
+2. Click **Add user** → **Create new user**
+3. Enter an email and password for the new admin
+4. The new admin can now log in at `/login`
+
+All routes are protected — unauthenticated users are automatically redirected to `/login`.
