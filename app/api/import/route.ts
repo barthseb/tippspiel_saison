@@ -50,6 +50,19 @@ export async function POST(request: Request) {
     )
   }
 
+  // Recalculate points for matches that already have results
+  const { data: matchesWithResults } = await supabase
+    .from('matches')
+    .select('id')
+    .not('home_goals_actual', 'is', null)
+    .not('away_goals_actual', 'is', null)
+
+  if (matchesWithResults) {
+    for (const m of matchesWithResults) {
+      await supabase.rpc('calculate_points', { p_match_id: m.id })
+    }
+  }
+
   return NextResponse.json({
     success: true,
     imported: {

@@ -117,6 +117,18 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
           .upsert(tipsToSave, { onConflict: 'participant_id,match_id' })
 
         if (tipsError) throw tipsError
+
+        // Recalculate points for matches that already have results,
+        // since the DB trigger only fires on match result changes, not tip inserts
+        const matchesWithResults = matches.filter(
+          (m) => m.home_goals_actual !== null && m.away_goals_actual !== null
+        )
+        const tippedMatchIds = new Set(tipsToSave.map((t) => t.match_id))
+        for (const m of matchesWithResults) {
+          if (tippedMatchIds.has(m.id)) {
+            await supabase.rpc('calculate_points', { p_match_id: m.id })
+          }
+        }
       }
 
       // Delete tips that were cleared
