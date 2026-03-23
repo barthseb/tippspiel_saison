@@ -35,6 +35,9 @@ export default async function EditTeilnehmerPage({ params }: Props) {
         <div>
           <h1 className="text-2xl font-bold text-zinc-900">{participant.name}</h1>
           <p className="text-zinc-500 mt-1">Losnummer #{participant.ticket_number}</p>
+          {participant.created_by_email && (
+            <p className="text-zinc-400 text-xs mt-1">Angelegt von {participant.created_by_email}</p>
+          )}
         </div>
         <DeleteParticipantButton id={id} name={participant.name} />
       </div>

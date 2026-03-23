@@ -10,6 +10,7 @@ export interface Participant {
   phone: string | null
   notes: string | null
   created_by: string | null
+  created_by_email: string | null
   updated_at: string
 }
 

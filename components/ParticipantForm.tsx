@@ -85,6 +85,7 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
             phone: phone || null,
             notes: notes || null,
             created_by: user?.id,
+            created_by_email: user?.email ?? null,
           })
           .select()
           .single()
