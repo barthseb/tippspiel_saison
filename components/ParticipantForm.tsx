@@ -145,8 +145,18 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
       }
 
       toast.success(isEditing ? 'Gespeichert' : 'Teilnehmer angelegt')
-      router.push('/dashboard/teilnehmer')
-      router.refresh()
+
+      if (isEditing) {
+        router.push('/dashboard/teilnehmer')
+        router.refresh()
+      } else {
+        // Reset form for next participant
+        setTicketNumber('')
+        setName('')
+        setPhone('')
+        setNotes('')
+        setTips(matches.map((m) => ({ matchId: m.id, homeGoalsTip: '', awayGoalsTip: '' })))
+      }
     } catch (err) {
       console.error(err)
       toast.error('Fehler beim Speichern')
