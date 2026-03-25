@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Match, Participant } from '@/lib/types'
@@ -19,6 +19,7 @@ interface Props {
 
 export default function ParticipantForm({ matches, participant, initialTips }: Props) {
   const router = useRouter()
+  const nameRef = useRef<HTMLInputElement>(null)
   const isEditing = !!participant
 
   const [ticketNumber, setTicketNumber] = useState(participant?.ticket_number ?? '')
@@ -156,6 +157,8 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
         setPhone('')
         setNotes('')
         setTips(matches.map((m) => ({ matchId: m.id, homeGoalsTip: '', awayGoalsTip: '' })))
+        nameRef.current?.focus()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     } catch (err) {
       console.error(err)
@@ -178,6 +181,7 @@ export default function ParticipantForm({ matches, participant, initialTips }: P
             </Label>
             <Input
               id="name"
+              ref={nameRef}
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Max Mustermann"
